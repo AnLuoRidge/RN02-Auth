@@ -1,29 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Header } from "./src/components/common";
+import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import { Header } from './src/components/common'
 import LoginForm from './src/components/LoginForm'
 import firebase from 'firebase'
+import { FIREBASE_CONFIG } from './src/config'
 
 export default class App extends React.Component {
-  componentWillMount() {
-  firebase.initializeApp ({
-      // move to config.js
-      /*
-      apiKey:
-      authDomain:
-      databaseURL:
-      storageBucket:
-      projectId: */
-  })
+  componentWillMount () {
+    firebase.initializeApp(FIREBASE_CONFIG)
   }
 
-  render() {
+  render () {
     return (
-        <View>
-            <Header>Sign in</Header>
-            <LoginForm />
-        </View>
-    );
+      <View>
+        <Header>Sign in</Header>
+        <LoginForm />
+      </View>
+    )
   }
 }
 
