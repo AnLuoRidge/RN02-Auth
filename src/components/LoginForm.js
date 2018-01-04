@@ -1,19 +1,28 @@
 import React, { Component } from 'react'
+import { Text } from 'react-native'
 import { Button, Card, CardSection, Input } from './common'
 import firebase from 'firebase'
 
 export default class LoginForm extends Component {
 
-    state = { email:'', password:'', error:''}
+  // DEBUG
+    // state = { email:'', password:'', error:''}
+  state = { email:'test@mail.com', password:'password', error:''}
 
     onButtonPress () {
-    firebase.auth().signInWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => {console.log('success')})
+    this.setState({error:''})
+    const { email, password, error } = this.state
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => {
+        this.setState({email:'', password:''})
+        console.log('success')
+      })
       .catch(() => {
-        firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+        firebase.auth().createUserWithEmailAndPassword(email, password)
           .then(() => {console.log('account created')})
-        this.setState({error: 'Authentication Failed.'})
-
+          .catch(() => {
+            this.setState({error: 'Authentication Failed.'})
+          })
       })
   }
 
@@ -25,6 +34,8 @@ export default class LoginForm extends Component {
                         label='Email'
                         onChangeText={email => this.setState({email})}
                         value={this.state.email}
+                        placeholder='User@mail.com'
+                        keyboardType={'email-address'}
                     />
                 </CardSection>
                 <CardSection>
@@ -32,11 +43,18 @@ export default class LoginForm extends Component {
                     label='Password'
                     onChangeText={password => this.setState({password})}
                     value={this.state.password}
+                    placeholder='password'
+                    secureTextEntry
+                    // keyboardType={'ascii-capable'}
                   />
                 </CardSection>
                 <CardSection>
                     <Button onPress={this.onButtonPress.bind(this)}>Log in</Button>
                 </CardSection>
+              <Text>
+                {this.state.error}
+              </Text>
+
             </Card>
         )
     }

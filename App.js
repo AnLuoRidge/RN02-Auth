@@ -6,6 +6,9 @@ import firebase from 'firebase'
 import { FIREBASE_CONFIG } from './src/config'
 
 export default class App extends React.Component {
+
+  state = { isLogged: undefined }
+
   componentWillMount () {
     firebase.initializeApp(FIREBASE_CONFIG)
   }
