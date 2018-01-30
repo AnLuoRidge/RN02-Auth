@@ -16,7 +16,7 @@ const Button = ({children: buttonTitle, onPress}) => {
 
 const styles = {
     buttonStyle: {
-        flex: 1,// extend as much as it can
+        flex: 1, // extend as much as it can
         alignSelf: 'stretch',
         backgroundColor: '#fff',
         borderRadius: 5,
